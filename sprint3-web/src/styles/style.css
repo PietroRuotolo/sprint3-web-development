@@ -1,0 +1,28 @@
+:root {
+    --color1: #1e1e1e;
+    --color2: #4481f8;
+    --color3: #ff383c;
+    --color4: #757575;
+    --color5: #ffcc00;
+    --color6: #f2f2f2;
+    --font-family: "Sen", system-ui, sans-serif;
+    --app-max-width: 820px;
+    --phone-preview-width: 430px;
+    --phone-preview-height: 860px;
+    --control-padding: 24px;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    min-height: 100%;
+    background: #111;
+}
+
+body {
+    font-family: var(--font-family);
+}

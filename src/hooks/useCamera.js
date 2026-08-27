@@ -44,12 +44,18 @@ export function useCamera(ativo){
             setMensagem("A câmera ainda está carregando.")
             return null;
         }
+    
+        const larguraMaxima = 640;
+        const proporcao = video.videoHeight / video.videoWidth;
+        const largura = Math.min(video.videoWidth, larguraMaxima);
+        const altura = Math.round(largura * proporcao);
+
         const canvas = document.createElement("canvas");
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
+        canvas.width = largura;
+        canvas.height = altura;
         const ctx = canvas.getContext("2d");
-        ctx.drawImage(video, 0,0,canvas.width, canvas.height);
-        return canvas.toDataURL("image/jpeg", 0.8);
+        ctx.drawImage(video, 0, 0, largura, altura);
+        return canvas.toDataURL("image/jpeg", 0.7);
     }
 
     return {videoRef, mensagem, setMensagem, capturarFrame};

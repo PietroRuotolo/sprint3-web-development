@@ -18,7 +18,13 @@ export default function App() {
     });
 
     useEffect(() => {
-        localStorage.setItem("jovi:fotos", JSON.stringify(fotos));
+        try{
+            localStorage.setItem("jovi:fotos", JSON.stringify(fotos));
+        }catch(erro){
+            console.error("Não foi possível salvar as fotos:", erro);
+            setMensagem("Armazenamento cheio — não foi possível salvar essa foto.");
+        }
+        
     }, [fotos]);
 
     const [modoAtivo, setModoAtivo] = useState("auto");

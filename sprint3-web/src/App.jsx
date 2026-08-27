@@ -1,0 +1,71 @@
+import {useState, useEffect} from "react";
+import Login from "./components/Login";
+import Header from "./components/Header";
+import CameraView from "./components/CameraView";
+import Footer from "./components/Footer";
+import MenuModos from "./components/MenuModos";
+import Galeria from "./components/Galeria";
+import { MODOS } from "./data/modos";
+
+export default function App() {
+    const [logado, setLogado] = useState(false);
+
+    const [fotos, setFotos] = useState(() => {
+        const salvo = localStorage.getItem("jovi:fotos");
+        return salvo ? JSON.parse(salvo) : [];
+    });
+
+    useEffect(() => {
+        localStorage.setItem("jovi:fotos", JSON.stringify(fotos));
+    }, [fotos]);
+
+    const [modoAtivo, setModoAtivo] = useState("auto");
+    const [modalAberto, setModalAberto] = useState(null);
+    const [mensagem, setMensagem] = useState("");
+
+    const modoInfo = MODOS.find((m) => m.id === modoAtivo);
+
+    function capturar() {
+        const novaFoto = {
+            id: Date.now() + Math.floor(Math.random()*1000),
+            imagem: "/fotoTeste.jpg",
+            filtro: modoInfo.filtro,
+            modoNome: modoInfo.nome,
+            modoIcone: modoInfo.icone,
+            criadoEm: Date.noew(),
+        };
+        setFotos([novaFoto, ...fotos]);
+        setMensagem("Foto salva na galeria!");
+
+        if (!logado) {
+            return <Login aoEntrar={() => setLogado(true)} />
+        }
+
+        return (
+            <div className="mx-auto flex min-h-dvh max-w-md flex-col bg-jovi-preto">
+                <Header
+                    aoAbrirModos={() => setModalAberto("modos")}
+                    aoAbrirGaleria={() => setModalAberto("galeria")}
+                    totalFotos={fotos.length}
+                />
+
+                <CameraView filtro={modoInfo.filtro} nomeModo={modoInfo.nome}/>
+
+                <Footer
+                    modoAtivo={modoAtivo}
+                    aoTrocarModo={setModoAtivo}
+                    aoCapturar={capturar}
+                    mensagem={mensagem}
+                />
+
+                {modalAberto === "modos" && (
+                    <MenuModos aoFechar={() => setModalAberto(null)}/>
+                )}
+
+                {modalAberto === "galeria" && (
+                    <Galeria fotos={fotos} aoFechar={() => setModalAberto(null)}/>
+                )}
+            </div>
+        );
+    }
+}

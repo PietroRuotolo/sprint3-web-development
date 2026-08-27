@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import Login from "./components/Login";
 import Header from "./components/Header";
 import CameraView from "./components/CameraView";
@@ -27,7 +27,7 @@ export default function App() {
 
     function capturar() {
         const novaFoto = {
-            id: Date.now() + Math.floor(Math.random()*1000),
+            id: Date.now() + Math.floor(Math.random() * 1000),
             imagem: "/fotoTeste.jpg",
             filtro: modoInfo.filtro,
             modoNome: modoInfo.nome,
@@ -36,36 +36,36 @@ export default function App() {
         };
         setFotos([novaFoto, ...fotos]);
         setMensagem("Foto salva na galeria!");
-
-        if (!logado) {
-            return <Login aoEntrar={() => setLogado(true)} />
-        }
-
-        return (
-            <div className="mx-auto flex min-h-dvh max-w-md flex-col bg-jovi-preto">
-                <Header
-                    aoAbrirModos={() => setModalAberto("modos")}
-                    aoAbrirGaleria={() => setModalAberto("galeria")}
-                    totalFotos={fotos.length}
-                />
-
-                <CameraView filtro={modoInfo.filtro} nomeModo={modoInfo.nome}/>
-
-                <Footer
-                    modoAtivo={modoAtivo}
-                    aoTrocarModo={setModoAtivo}
-                    aoCapturar={capturar}
-                    mensagem={mensagem}
-                />
-
-                {modalAberto === "modos" && (
-                    <MenuModos aoFechar={() => setModalAberto(null)}/>
-                )}
-
-                {modalAberto === "galeria" && (
-                    <Galeria fotos={fotos} aoFechar={() => setModalAberto(null)}/>
-                )}
-            </div>
-        );
     }
+
+    if (!logado) {
+        return <Login aoEntrar={() => setLogado(true)} />
+    }
+
+    return (
+        <div className="mx-auto flex min-h-dvh max-w-md flex-col bg-jovi-preto">
+            <Header
+                aoAbrirModos={() => setModalAberto("modos")}
+                aoAbrirGaleria={() => setModalAberto("galeria")}
+                totalFotos={fotos.length}
+            />
+
+            <CameraView filtro={modoInfo.filtro} nomeModo={modoInfo.nome} />
+
+            <Footer
+                modoAtivo={modoAtivo}
+                aoTrocarModo={setModoAtivo}
+                aoCapturar={capturar}
+                mensagem={mensagem}
+            />
+
+            {modalAberto === "modos" && (
+                <MenuModos aoFechar={() => setModalAberto(null)} />
+            )}
+
+            {modalAberto === "galeria" && (
+                <Galeria fotos={fotos} aoFechar={() => setModalAberto(null)} />
+            )}
+        </div>
+    );
 }

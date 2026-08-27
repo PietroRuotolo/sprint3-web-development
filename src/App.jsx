@@ -6,9 +6,11 @@ import Footer from "./components/Footer";
 import MenuModos from "./components/MenuModos";
 import Galeria from "./components/Galeria";
 import { MODOS } from "./data/modos";
+import {useCamera} from "./hooks/useCamera"
 
 export default function App() {
     const [logado, setLogado] = useState(false);
+    const [videoRef, mensagemCamera, capturarFrame] = useCamera();
 
     const [fotos, setFotos] = useState(() => {
         const salvo = localStorage.getItem("jovi:fotos");
@@ -26,9 +28,12 @@ export default function App() {
     const modoInfo = MODOS.find((m) => m.id === modoAtivo);
 
     function capturar() {
+        const imagemCapturada = capturarFrame();
+        if (!imagemCapturada) return;
+
         const novaFoto = {
             id: Date.now() + Math.floor(Math.random() * 1000),
-            imagem: "/fotoTeste.jpg",
+            imagem: imagemCapturada,
             filtro: modoInfo.filtro,
             modoNome: modoInfo.nome,
             modoIcone: modoInfo.icone,
@@ -50,7 +55,7 @@ export default function App() {
                 totalFotos={fotos.length}
             />
 
-            <CameraView filtro={modoInfo.filtro} nomeModo={modoInfo.nome} />
+            <CameraView videoRef={videoRef} filtro={modoInfo.filtro} nomeModo={modoInfo.nome} />
 
             <Footer
                 modoAtivo={modoAtivo}

@@ -9,7 +9,7 @@ export default function Footer({modoAtivo, aoTrocarModo, aoCapturar, mensagem}){
                         key={m.id}
                         onClick={() => aoTrocarModo(m.id)}
                         className={
-                            "rounded-full px-3 py-2 text-xs text-jovi-claro" + (modoAtivo == m.id ? "bg-jovi-azul" : "bg-black/40")
+                            "rounded-full px-3 py-2 text-xs text-jovi-claro " + (modoAtivo == m.id ? "bg-jovi-azul" : "bg-black/40")
                         }
                     >
                         {m.icone} {m.nome}

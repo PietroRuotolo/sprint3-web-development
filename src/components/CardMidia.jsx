@@ -1,5 +1,5 @@
 export default function CardMidia({foto}) {
-    const data = new Date(item.criadoEm);
+    const data = new Date(foto.criadoEm);
     const dataFormatada = data.toLocaleDateString("pt-BR", {
         day: "2-digit",
         month: "2-digit",

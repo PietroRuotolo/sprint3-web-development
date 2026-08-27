@@ -18,11 +18,11 @@ export default function MenuModos({aoFechar}){
             </div>
 
             <div className="flex-1 overflow-y-auto p-5">
-                <div className="mb-5 rouded-xl border-white/15 bg-jovi-azul/20 p-4">
+                <div className="mb-5 rounded-xl border-white/15 bg-jovi-azul/20 p-4">
                     <h3 className="text-xs font-bold tracking-wide text-jovi-amarelo uppercase">
                         Modo surpresa do Dia
                     </h3>
-                    <p className="my-1 text-2x1 font-extrabold text-jovi-claro">
+                    <p className="my-1 text-2xl font-extrabold text-jovi-claro">
                         {sugestao.icone} {sugestao.nome}
                     </p>
                     <p className="text-sm text-gray-300">{sugestao.quando}</p>

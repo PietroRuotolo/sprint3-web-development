@@ -10,7 +10,7 @@ import {useCamera} from "./hooks/useCamera"
 
 export default function App() {
     const [logado, setLogado] = useState(false);
-    const [videoRef, mensagemCamera, capturarFrame] = useCamera();
+    const {videoRef, mensagemCamera, capturarFrame} = useCamera();
 
     const [fotos, setFotos] = useState(() => {
         const salvo = localStorage.getItem("jovi:fotos");
@@ -37,7 +37,7 @@ export default function App() {
             filtro: modoInfo.filtro,
             modoNome: modoInfo.nome,
             modoIcone: modoInfo.icone,
-            criadoEm: Date.noew(),
+            criadoEm: Date.now(),
         };
         setFotos([novaFoto, ...fotos]);
         setMensagem("Foto salva na galeria!");

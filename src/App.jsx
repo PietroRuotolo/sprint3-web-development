@@ -10,7 +10,7 @@ import {useCamera} from "./hooks/useCamera"
 
 export default function App() {
     const [logado, setLogado] = useState(false);
-    const {videoRef, mensagemCamera, capturarFrame} = useCamera();
+    const {videoRef, mensagemCamera, capturarFrame} = useCamera(logado);
 
     const [fotos, setFotos] = useState(() => {
         const salvo = localStorage.getItem("jovi:fotos");

@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 
-export function useCamera(){
+export function useCamera(ativo){
     const videoRef = useRef(null);
     const streamRef = useRef(null);
     const [mensagem, setMensagem] = useState("");
 
     useEffect(() => {
+        if(!ativo) return;
         async function configurarCamera() {
             if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
                setMensagem("Seu navegador não suporta acesso à câmera.")
@@ -35,7 +36,7 @@ export function useCamera(){
                 streamRef.current.getTracks().forEach((t) => t.stop())
             }
         };
-    }, []);
+    }, [ativo]);
 
     function capturarFrame(){
         const video = videoRef.current;

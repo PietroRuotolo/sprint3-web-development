@@ -44,27 +44,26 @@ export const MODOS = [
 
 ]
 
-export function sugerirModoClima({codigo, dia, temperatura}) {
+export function sugerirModoClima({ codigo, dia }) {
     const modo = (id) => MODOS.find((m) => m.id === id);
-    const temp = `${temperatura}°C`;
 
-    if (!dia){
-        return {modo: modo("noturno")}
+    if (!dia) {
+        return { modo: modo("noturno") }
     }
-    if (codigo === 0 || codigo === 1){
-        return {modo: modo("retrato")}
+    if (codigo === 0 || codigo === 1) {
+        return { modo: modo("retrato") }
     }
-    if (codigo === 2 || codigo === 3){
-        return {modo: modo("pb")}
+    if (codigo === 2 || codigo === 3) {
+        return { modo: modo("pb") }
     }
-    if (codigo === 45 || codigo === 48){
-        return {modo: modo("pb")}
+    if (codigo === 45 || codigo === 48) {
+        return { modo: modo("pb") }
     }
-    if ((codigo >= 51 && codigo <= 67) || (codigo >= 80 & codigo <= 82) || codigo >= 95){
-        return {modo: modo("macro")}
+    if ((codigo >= 51 && codigo <= 67) || (codigo >= 80 && codigo <= 82) || codigo >= 95) {
+        return { modo: modo("macro") }
     }
-    if ((codigo >= 71 && codigo <= 77) || codigo === 85 || codigo === 86){
-        return {modo: modo("pro")}
+    if ((codigo >= 71 && codigo <= 77) || codigo === 85 || codigo === 86) {
+        return { modo: modo("pro") }
     }
-    return {modo: modo("auto")}
+    return { modo: modo("auto") }
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const SAO_PAULO = {latitude: -23.55, longitutde: -45.63};
+const SAO_PAULO = {latitude: -23.55, longitude: -46.63};
 
 function obterLocalizacao(){
     return new Promise((resolve) => {
@@ -12,7 +12,7 @@ function obterLocalizacao(){
             (posicao) =>
                 resolve({
                     latitude: posicao.coords.latitude,
-                    longitutde: posicao.coords.longitude,
+                    longitude: posicao.coords.longitude,
                 }),
             () => resolve(SAO_PAULO),
             {timeout: 5000}
@@ -44,7 +44,7 @@ export function useClima(){
                     setEstado({
                         status: 'ok',
                         clima: {
-                            temperatura: Math.round(dados.current.temperatura_2m),
+                            temperatura: Math.round(dados.current.temperature_2m),
                             codigo: dados.current.weather_code,
                             dia: dados.current.is_day === 1, 
                         },

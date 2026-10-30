@@ -1,9 +1,19 @@
-import {MODOS} from "../data/modos";
+import { useState } from "react";
+import {MODOS, sugerirModoClima} from "../data/modos";
+import { useClima } from "../hooks/useClima";
 
 export default function MenuModos({aoFechar}){
 
-    const candidatos = MODOS.filter((m) => m.id !== "auto");
-    const sugestao = candidatos[Math.floor(Math.random() * candidatos.length)];
+    const {status, clima} = useClima();
+
+    const [sugestaoAleatoria] = useState(() => {
+        const candidatos = MODOS.filter((m) => m.id !== 'auto');
+        return candidatos[Math.floor(Math.random() * candidatos.length)];
+    });
+
+    const sugestao = clima
+        ? sugerirModoClima(clima)
+        : {modo: sugestaoAleatoria}
 
     return (
         <div className="absolute inset-0 z-30 flex flex-col bg-black/90">
@@ -20,12 +30,17 @@ export default function MenuModos({aoFechar}){
             <div className="flex-1 overflow-y-auto p-5">
                 <div className="mb-5 rounded-xl border-white/15 bg-jovi-azul/20 p-4">
                     <h3 className="text-xs font-bold tracking-wide text-jovi-amarelo uppercase">
-                        Modo surpresa do Dia
+                        {clima ? "Modo sugerido para agora" : "Modo surpresa do Dia"}
                     </h3>
-                    <p className="my-1 text-2xl font-extrabold text-jovi-claro">
-                        {sugestao.icone} {sugestao.nome}
-                    </p>
-                    <p className="text-sm text-gray-300">{sugestao.quando}</p>
+                    {status === 'carregando' ? (
+                        <p className="my-1 text-sm text-gray-300">Consultando o clima...</p>
+                    ): (
+                        <>
+                            <p className="my-1 text-2xl font-extrabold text-jovi-claro">
+                                {sugestao.modo.icone} {sugestao.modo.nome}
+                            </p>
+                        </>
+                    )}
                 </div>
 
                 <div className="flex flex-col gap-3">
